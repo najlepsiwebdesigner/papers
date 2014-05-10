@@ -4,13 +4,24 @@
  */
 
 var express = require('express')
-  , routes = require('./routes')
-  , user = require('./routes/user')
+  , routes = require('./routes');
+
+var mongo = require('mongodb');
+var monk = require('monk');
+var db = monk('localhost:27017/papers');
+
+var app = express();
+
+app.use(function(req,res,next){
+    req.db = db;
+    next();
+});
+
+var user = require('./routes/user')
   , analyze = require('./routes/analyze')
   , http = require('http')
   , path = require('path');
 
-var app = express();
 
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);

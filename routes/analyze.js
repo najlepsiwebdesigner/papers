@@ -1,27 +1,21 @@
-
-/*
- * GET home page.
- */
-
-var pdftotext = require('pdftotextjs'),
-    pdf = new pdftotext('files/1.pdf');
-
-// pdf.add_options(['-f 1', '-l 1']);
-
+ var Paper = require('../classes/paper.js');
 
 exports.index = function(req, res){
-  pdf.getText(function(err, data, cmd) {
-	  if (err) 
-	    console.error(err);
-	  
-	  else {
-	    console.log(data);
-	    // additionally you can also access cmd array
-	    // it contains params which passed to pdftotext ['filename', '-f', '1', '-l', '1', '-']
-	    console.log(cmd.join(' '));
-	  }
-	  res.render('analyze', { data: data });
-  });
+  var pdftotext = require('pdftotextjs');
+  var pdf = new pdftotext('./files/1.pdf');
+
+  var paper = new Paper(req.db);
+
+
+  paper.getPapers('a');
+
+  res.render('analyze', { data:  'Look at he console'});
+  // pdf.getText(function(err, data, cmd) {
+	 //  if (err) {
+		// 	console.log(err);	    
+	 //  }
+	 //  res.render('analyze', { data:  data});
+  // });
 
 
 };
