@@ -1,0 +1,9 @@
+extends layout
+
+block content
+	h2 Listing	
+	div= data
+	- each paper in papers
+		p
+			= paper.username
+			br

@@ -6,7 +6,7 @@
 var express = require('express')
   , routes = require('./routes');
 
-var mongo = require('mongodb');
+// var mongo = require('mongodb');
 var monk = require('monk');
 var db = monk('localhost:27017/papers');
 
@@ -18,7 +18,7 @@ app.use(function(req,res,next){
 });
 
 var user = require('./routes/user')
-  , analyze = require('./routes/analyze')
+  , papers = require('./routes/papers')
   , http = require('http')
   , path = require('path');
 
@@ -41,7 +41,9 @@ app.configure('development', function(){
 
 app.get('/', routes.index);
 app.get('/users', user.list);
-app.get('/analyze', analyze.index);
+app.get('/papers', papers.list);
+app.get('/papers/analyze', papers.analyze);
+app.get('/papers/import', papers.import);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
